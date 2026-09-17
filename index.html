@@ -808,16 +808,14 @@
       setTimeout(() => document.getElementById('priceInput').focus(), 350);
     }
 
-    function initApp() {
+    
+      function initApp() {
       const userLangInfo = (navigator.language || navigator.userLanguage || '').toUpperCase();
       
-      if (userLangInfo.includes('US') || userLangInfo.includes('CA') || userLangInfo.includes('AU')) userCurrency = '$';
-      else if (userLangInfo.includes('GB')) userCurrency = '£';
-      else if (userLangInfo.includes('PL')) userCurrency = 'zł';
-      else if (userLangInfo.includes('CH')) userCurrency = 'CHF';
-      else if (userLangInfo.includes('JP')) userCurrency = '¥';
-      else if (userLangInfo.includes('MX') || userLangInfo.includes('AR') || userLangInfo.includes('CO')) userCurrency = '$';
-      else userCurrency = '€';
+      userCurrency = '€';
+
+    
+
 
       let startLang = 'de';
       if (userLangInfo.startsWith('EN')) startLang = 'en';
