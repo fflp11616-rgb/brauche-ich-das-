@@ -1,0 +1,1509 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Brauche ich das?</title>
+  <style>
+    :root {
+      --bg-color: #e6edf5;
+      --bg-pattern: radial-gradient(rgba(0,0,0,0.03) 1px, transparent 1px);
+      --header-color: rgba(29, 29, 31, 0.45);
+      --card-bg: rgba(255, 255, 255, 0.45);
+      --card-border: rgba(255, 255, 255, 0.8);
+      --card-shadow: 0 30px 60px rgba(0, 0, 0, 0.07), inset 0 1px 2px rgba(255, 255, 255, 0.9), inset 0 0 30px rgba(255, 255, 255, 0.4);
+      --text-color: #1d1d1f;
+      --text-sub: rgba(29, 29, 31, 0.55);
+      --input-bg: rgba(255, 255, 255, 0.6);
+      --input-border: rgba(255, 255, 255, 0.8);
+      --input-focus-bg: rgba(255, 255, 255, 0.9);
+      --pill-bg: rgba(255, 255, 255, 0.5);
+      --pill-border: rgba(255, 255, 255, 0.7);
+      --pill-hover: rgba(255, 255, 255, 0.9);
+      --btn-bg: rgba(29, 29, 31, 0.9);
+      --btn-color: #fff;
+      --btn-hover: #1d1d1f;
+      --dot-bg: rgba(0, 0, 0, 0.1);
+      --dot-active: #1d1d1f;
+      --back-hover: rgba(0, 0, 0, 0.05);
+      --metrics-bg: rgba(255, 255, 255, 0.4);
+      --metrics-border: rgba(255, 255, 255, 0.7);
+      --toggle-bg: rgba(0, 0, 0, 0.05);
+      --toggle-active: #ffffff;
+      --toggle-shadow: 0 4px 12px rgba(0,0,0,0.08);
+
+      --status-no-bg: rgba(239, 68, 68, 0.32);
+      --status-no-border: rgba(239, 68, 68, 0.65);
+      --status-no-shadow: 0 30px 60px rgba(239, 68, 68, 0.25), inset 0 1px 2px rgba(255, 255, 255, 0.4), inset 0 0 40px rgba(239, 68, 68, 0.25);
+
+      --status-maybe-bg: rgba(245, 158, 11, 0.32);
+      --status-maybe-border: rgba(245, 158, 11, 0.65);
+      --status-maybe-shadow: 0 30px 60px rgba(245, 158, 11, 0.25), inset 0 1px 2px rgba(255, 255, 255, 0.4), inset 0 0 40px rgba(245, 158, 11, 0.25);
+
+      --status-yes-bg: rgba(16, 185, 129, 0.32);
+      --status-yes-border: rgba(16, 185, 129, 0.65);
+      --status-yes-shadow: 0 30px 60px rgba(16, 185, 129, 0.25), inset 0 1px 2px rgba(255, 255, 255, 0.4), inset 0 0 40px rgba(16, 185, 129, 0.25);
+    }
+
+    body.dark-mode {
+      --bg-color: #0c0d10;
+      --bg-pattern: radial-gradient(rgba(255,255,255,0.04) 1px, transparent 1px);
+      --header-color: rgba(255, 255, 255, 0.4);
+      --card-bg: rgba(30, 32, 40, 0.45);
+      --card-border: rgba(255, 255, 255, 0.12);
+      --card-shadow: 0 30px 60px rgba(0, 0, 0, 0.4), inset 0 1px 2px rgba(255, 255, 255, 0.1), inset 0 0 30px rgba(255, 255, 255, 0.02);
+      --text-color: #f5f5f7;
+      --text-sub: rgba(245, 245, 247, 0.55);
+      --input-bg: rgba(255, 255, 255, 0.06);
+      --input-border: rgba(255, 255, 255, 0.12);
+      --input-focus-bg: rgba(255, 255, 255, 0.12);
+      --pill-bg: rgba(255, 255, 255, 0.06);
+      --pill-border: rgba(255, 255, 255, 0.12);
+      --pill-hover: rgba(255, 255, 255, 0.15);
+      --btn-bg: rgba(255, 255, 255, 0.9);
+      --btn-color: #0c0d10;
+      --btn-hover: #fff;
+      --dot-bg: rgba(255, 255, 255, 0.15);
+      --dot-active: #fff;
+      --back-hover: rgba(255, 255, 255, 0.08);
+      --metrics-bg: rgba(0, 0, 0, 0.25);
+      --metrics-border: rgba(255, 255, 255, 0.1);
+      --toggle-bg: rgba(255, 255, 255, 0.08);
+      --toggle-active: #2c2d35;
+      --toggle-shadow: 0 4px 12px rgba(0,0,0,0.3);
+
+      --status-no-bg: rgba(239, 68, 68, 0.15);
+      --status-no-border: rgba(239, 68, 68, 0.4);
+      --status-no-shadow: 0 30px 60px rgba(239, 68, 68, 0.15), inset 0 1px 2px rgba(255, 255, 255, 0.2), inset 0 0 40px rgba(239, 68, 68, 0.15);
+
+      --status-maybe-bg: rgba(245, 158, 11, 0.15);
+      --status-maybe-border: rgba(245, 158, 11, 0.4);
+      --status-maybe-shadow: 0 30px 60px rgba(245, 158, 11, 0.15), inset 0 1px 2px rgba(255, 255, 255, 0.2), inset 0 0 40px rgba(245, 158, 11, 0.15);
+
+      --status-yes-bg: rgba(16, 185, 129, 0.15);
+      --status-yes-border: rgba(16, 185, 129, 0.4);
+      --status-yes-shadow: 0 30px 60px rgba(16, 185, 129, 0.15), inset 0 1px 2px rgba(255, 255, 255, 0.2), inset 0 0 40px rgba(16, 185, 129, 0.15);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    }
+
+    body {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      background: var(--bg-color);
+      background-image: var(--bg-pattern);
+      background-size: 24px 24px;
+      overflow-x: hidden;
+      position: relative;
+      color: var(--text-color);
+      padding: 20px;
+      transition: background 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .settings-row {
+      position: absolute;
+      top: 20px;
+      display: flex;
+      gap: 10px;
+      width: 100%;
+      max-width: 440px;
+      padding: 0 20px;
+      z-index: 10;
+    }
+
+    .segmented-control {
+      flex: 1;
+      display: flex;
+      background: var(--toggle-bg);
+      border-radius: 14px;
+      padding: 3px;
+      position: relative;
+      border: 1px solid var(--card-border);
+      backdrop-filter: blur(10px);
+      touch-action: none;
+      cursor: grab;
+      user-select: none;
+    }
+
+    .segmented-control:active {
+      cursor: grabbing;
+    }
+
+    .segment-option {
+      flex: 1;
+      text-align: center;
+      padding: 7px 4px;
+      font-size: 0.75rem;
+      font-weight: 600;
+      color: var(--text-sub);
+      cursor: pointer;
+      z-index: 2;
+      transition: color 0.3s ease;
+      white-space: nowrap;
+    }
+
+    .segment-option.active {
+      color: var(--text-color);
+    }
+
+    .segment-slider {
+      position: absolute;
+      top: 3px;
+      bottom: 3px;
+      left: 3px;
+      width: calc(33.33% - 2px);
+      background: var(--toggle-active);
+      border-radius: 11px;
+      box-shadow: var(--toggle-shadow);
+      transition: background 0.3s ease;
+      z-index: 1;
+      pointer-events: none;
+    }
+
+    .segmented-control.two-options .segment-slider {
+      width: calc(50% - 2px);
+    }
+
+    .app-header {
+      margin-bottom: 20px;
+      font-size: 0.95rem;
+      font-weight: 600;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      color: var(--header-color);
+      transition: opacity 0.4s ease;
+    }
+
+    .app-container {
+      width: 100%;
+      max-width: 440px;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      z-index: 1;
+    }
+
+    .glass-card {
+      position: relative;
+      width: 100%;
+      padding: 40px 35px 45px 35px;
+      border-radius: 36px;
+      background: var(--card-bg);
+      backdrop-filter: blur(40px);
+      -webkit-backdrop-filter: blur(40px);
+      border: 1px solid var(--card-border);
+      box-shadow: var(--card-shadow);
+      transition: background 0.6s cubic-bezier(0.16, 1, 0.3, 1),
+                  border-color 0.6s cubic-bezier(0.16, 1, 0.3, 1),
+                  box-shadow 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .glass-card.status-no {
+      background: var(--status-no-bg);
+      border-color: var(--status-no-border);
+      box-shadow: var(--status-no-shadow);
+    }
+
+    .glass-card.status-maybe {
+      background: var(--status-maybe-bg);
+      border-color: var(--status-maybe-border);
+      box-shadow: var(--status-maybe-shadow);
+    }
+
+    .glass-card.status-yes {
+      background: var(--status-yes-bg);
+      border-color: var(--status-yes-border);
+      box-shadow: var(--status-yes-shadow);
+    }
+
+    .watchlist-trigger-box {
+      width: 100%;
+      padding: 16px 24px;
+      border-radius: 24px;
+      background: var(--card-bg);
+      backdrop-filter: blur(30px);
+      -webkit-backdrop-filter: blur(30px);
+      border: 1px solid var(--card-border);
+      box-shadow: 0 10px 30px rgba(0,0,0,0.04);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      cursor: pointer;
+      transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .watchlist-trigger-box:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 15px 35px rgba(0,0,0,0.08);
+    }
+
+    .watchlist-trigger-label {
+      font-size: 0.9rem;
+      font-weight: 600;
+      color: var(--text-color);
+    }
+
+    .watchlist-trigger-badge {
+      padding: 4px 10px;
+      border-radius: 12px;
+      background: var(--pill-bg);
+      border: 1px solid var(--pill-border);
+      font-size: 0.75rem;
+      font-weight: 700;
+      color: var(--text-color);
+    }
+
+    .card-top-bar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 20px;
+      min-height: 24px;
+    }
+
+    .btn-back {
+      background: none;
+      border: none;
+      font-size: 0.85rem;
+      font-weight: 600;
+      color: var(--text-sub);
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      padding: 4px 8px;
+      border-radius: 10px;
+      transition: all 0.2s ease;
+      opacity: 0;
+      pointer-events: none;
+    }
+
+    .btn-back.visible {
+      opacity: 1;
+      pointer-events: auto;
+    }
+
+    .btn-back:hover {
+      background: var(--back-hover);
+      color: var(--text-color);
+    }
+
+    .progress-dots {
+      display: flex;
+      gap: 6px;
+      flex: 1;
+      margin-left: 10px;
+    }
+    .dot {
+      height: 4px;
+      flex: 1;
+      border-radius: 4px;
+      background: var(--dot-bg);
+      transition: background 0.4s ease;
+    }
+    .dot.active {
+      background: var(--dot-active);
+    }
+
+    h1 {
+      font-size: 1.6rem;
+      font-weight: 700;
+      margin-bottom: 6px;
+      letter-spacing: -0.5px;
+      color: var(--text-color);
+    }
+
+    p.subtitle {
+      font-size: 0.85rem;
+      color: var(--text-sub);
+      margin-bottom: 25px;
+      text-transform: uppercase;
+      letter-spacing: 0.8px;
+      font-weight: 600;
+    }
+
+    .step {
+      display: none;
+      opacity: 0;
+      transform: translateY(15px);
+      transition: opacity 0.45s cubic-bezier(0.16, 1, 0.3, 1),
+                  transform 0.45s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .step.active {
+      display: block;
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    label {
+      display: block;
+      font-size: 0.95rem;
+      font-weight: 600;
+      margin-bottom: 15px;
+      color: var(--text-color);
+    }
+
+    .glass-input-wrapper {
+      position: relative;
+      margin-bottom: 15px;
+    }
+
+    .glass-input {
+      width: 100%;
+      padding: 16px 20px;
+      border-radius: 20px;
+      border: 1px solid var(--input-border);
+      background: var(--input-bg);
+      backdrop-filter: blur(20px);
+      font-size: 1.25rem;
+      font-weight: 600;
+      color: var(--text-color);
+      outline: none;
+      text-align: center;
+      box-shadow: inset 0 2px 4px rgba(0,0,0,0.02), 0 8px 20px rgba(0,0,0,0.02);
+      transition: all 0.3s ease;
+    }
+
+    .glass-input:focus {
+      background: var(--input-focus-bg);
+      border-color: rgba(120, 120, 120, 0.3);
+      box-shadow: 0 0 0 4px rgba(120, 120, 120, 0.1), 0 8px 20px rgba(0,0,0,0.02);
+    }
+
+    .pills-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+      margin-bottom: 10px;
+    }
+
+    .pill {
+      padding: 16px;
+      border-radius: 20px;
+      border: 1px solid var(--pill-border);
+      background: var(--pill-bg);
+      backdrop-filter: blur(20px);
+      font-size: 0.9rem;
+      font-weight: 600;
+      color: var(--text-color);
+      cursor: pointer;
+      text-align: center;
+      transition: background 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.02);
+    }
+
+    .pill:hover {
+      background: var(--pill-hover);
+      box-shadow: 0 6px 20px rgba(0,0,0,0.05);
+    }
+
+    .sale-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 12px 16px;
+      background: var(--pill-bg);
+      border: 1px solid var(--pill-border);
+      border-radius: 16px;
+      margin-bottom: 25px;
+      backdrop-filter: blur(10px);
+    }
+    .sale-label-text {
+      font-size: 0.85rem;
+      font-weight: 600;
+      color: var(--text-sub);
+    }
+    .sale-switch {
+      width: 44px;
+      height: 24px;
+      background: var(--dot-bg);
+      border-radius: 12px;
+      position: relative;
+      cursor: pointer;
+      transition: background 0.3s ease;
+    }
+    .sale-switch::after {
+      content: '';
+      position: absolute;
+      top: 3px;
+      left: 3px;
+      width: 18px;
+      height: 18px;
+      background: #fff;
+      border-radius: 50%;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+      transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .sale-switch.active {
+      background: #10b981;
+    }
+    .sale-switch.active::after {
+      transform: translateX(20px);
+    }
+
+    .btn-glass {
+      width: 100%;
+      padding: 16px;
+      border-radius: 20px;
+      border: 1px solid var(--card-border);
+      background: var(--btn-bg);
+      color: var(--btn-color);
+      font-weight: 600;
+      font-size: 1rem;
+      cursor: pointer;
+      backdrop-filter: blur(20px);
+      box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+      transition: background 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .btn-glass:hover {
+      background: var(--btn-hover);
+      box-shadow: 0 12px 28px rgba(0,0,0,0.15);
+    }
+
+    .btn-secondary {
+      width: 100%;
+      padding: 12px;
+      margin-top: 10px;
+      border-radius: 20px;
+      border: 1px solid var(--pill-border);
+      background: var(--pill-bg);
+      color: var(--text-color);
+      font-weight: 600;
+      font-size: 0.9rem;
+      cursor: pointer;
+      backdrop-filter: blur(20px);
+      transition: all 0.3s ease;
+    }
+
+    .btn-secondary:hover {
+      background: var(--pill-hover);
+    }
+
+    .badge {
+      display: inline-block;
+      padding: 6px 14px;
+      border-radius: 20px;
+      font-size: 0.75rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      margin-bottom: 15px;
+      background: var(--pill-bg);
+      border: 1px solid var(--pill-border);
+      color: var(--text-color);
+      backdrop-filter: blur(10px);
+    }
+
+    .result-title {
+      font-size: 1.6rem;
+      font-weight: 700;
+      margin-bottom: 10px;
+      letter-spacing: -0.5px;
+      color: var(--text-color);
+    }
+
+    .reason {
+      font-size: 0.95rem;
+      line-height: 1.5;
+      color: var(--text-sub);
+      margin-bottom: 20px;
+    }
+
+    .metrics {
+      background: var(--metrics-bg);
+      border-radius: 20px;
+      padding: 16px;
+      font-size: 0.85rem;
+      color: var(--text-color);
+      border: 1px solid var(--metrics-border);
+      margin-bottom: 20px;
+      backdrop-filter: blur(20px);
+      box-shadow: inset 0 1px 2px rgba(255,255,255,0.1);
+    }
+
+    /* Footer Navigation */
+    .footer-nav {
+      position: absolute;
+      bottom: 15px;
+      display: flex;
+      gap: 15px;
+      font-size: 0.75rem;
+      color: var(--text-sub);
+      z-index: 5;
+    }
+
+    .footer-link {
+      cursor: pointer;
+      text-decoration: underline;
+      transition: color 0.2s ease;
+    }
+
+    .footer-link:hover {
+      color: var(--text-color);
+    }
+
+    /* Modals */
+    .modal-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.3);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 20px;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.3s ease;
+      z-index: 100;
+    }
+
+    .modal-overlay.active {
+      opacity: 1;
+      pointer-events: auto;
+    }
+
+    .modal-card {
+      width: 100%;
+      max-width: 420px;
+      height: 380px;
+      display: flex;
+      flex-direction: column;
+      padding: 30px;
+      border-radius: 28px;
+      background: var(--card-bg);
+      backdrop-filter: blur(40px);
+      -webkit-backdrop-filter: blur(40px);
+      border: 1px solid var(--card-border);
+      box-shadow: var(--card-shadow);
+      position: relative;
+      transform: scale(0.95);
+      transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .modal-overlay.active .modal-card {
+      transform: scale(1);
+    }
+
+    .modal-close {
+      position: absolute;
+      top: 18px;
+      right: 18px;
+      background: none;
+      border: none;
+      font-size: 1.1rem;
+      font-weight: 700;
+      color: var(--text-sub);
+      cursor: pointer;
+      width: 30px;
+      height: 30px;
+      border-radius: 50%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      transition: background 0.2s ease, color 0.2s ease;
+      z-index: 5;
+    }
+
+    .modal-close:hover {
+      background: var(--back-hover);
+      color: var(--text-color);
+    }
+
+    .modal-title {
+      font-size: 1.2rem;
+      font-weight: 700;
+      margin-bottom: 12px;
+      color: var(--text-color);
+      flex-shrink: 0;
+    }
+
+    .watchlist-add-bar {
+      display: flex;
+      gap: 8px;
+      margin-bottom: 12px;
+      flex-shrink: 0;
+    }
+
+    .watchlist-scroll {
+      overflow-y: auto;
+      flex-grow: 1;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      padding-right: 4px;
+    }
+
+    .watchlist-item {
+      background: var(--metrics-bg);
+      border: 1px solid var(--metrics-border);
+      border-radius: 16px;
+      padding: 12px 14px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 0.85rem;
+      gap: 8px;
+      flex-shrink: 0;
+    }
+
+    .watchlist-edit-inputs {
+      display: flex;
+      gap: 6px;
+      flex: 1;
+      min-width: 0;
+    }
+
+    .watchlist-edit-inputs input {
+      padding: 6px 10px;
+      border-radius: 10px;
+      border: 1px solid var(--input-border);
+      background: var(--input-bg);
+      color: var(--text-color);
+      font-size: 0.85rem;
+      outline: none;
+      min-width: 0;
+    }
+
+    .watchlist-info {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+      overflow: hidden;
+      flex: 1;
+      min-width: 0;
+    }
+
+    .watchlist-title {
+      font-weight: 600;
+      color: var(--text-color);
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .watchlist-meta {
+      color: var(--text-sub);
+      font-size: 0.75rem;
+      white-space: nowrap;
+    }
+
+    .watchlist-actions {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      flex-shrink: 0;
+    }
+
+    .action-btn {
+      background: none;
+      border: none;
+      color: var(--text-sub);
+      cursor: pointer;
+      font-size: 0.9rem;
+      padding: 4px;
+      transition: color 0.2s ease;
+    }
+    .action-btn:hover {
+      color: var(--text-color);
+    }
+    .delete-btn:hover {
+      color: #ef4444;
+    }
+
+    .shop-link {
+      padding: 6px 10px;
+      background: var(--btn-bg);
+      color: var(--btn-color);
+      border-radius: 10px;
+      font-size: 0.75rem;
+      font-weight: 600;
+      text-decoration: none;
+      white-space: nowrap;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="settings-row">
+    <div class="segmented-control" id="themeControl">
+      <div class="segment-slider" id="themeSlider"></div>
+      <div class="segment-option active" id="th-auto" onclick="setTheme('auto'); triggerHaptic();">Auto</div>
+      <div class="segment-option" id="th-dark" onclick="setTheme('dark'); triggerHaptic();">Dunkel</div>
+      <div class="segment-option" id="th-light" onclick="setTheme('light'); triggerHaptic();">Hell</div>
+    </div>
+
+    <div class="segmented-control two-options" id="langControl">
+      <div class="segment-slider" id="langSlider"></div>
+      <div class="segment-option active" id="ln-de" onclick="setLang('de'); triggerHaptic();">DE</div>
+      <div class="segment-option" id="ln-en" onclick="setLang('en'); triggerHaptic();">EN</div>
+    </div>
+  </div>
+
+  <div class="app-header" id="appHeader">Brauche ich das?</div>
+
+  <div class="app-container">
+    <div class="glass-card" id="glassCard">
+      
+      <div class="card-top-bar">
+        <button class="btn-back" id="backBtn" onclick="prevStep()"><span id="backText">← Zurück</span></button>
+        <div class="progress-dots" id="progressDots">
+          <div class="dot active" id="dot-1"></div>
+          <div class="dot" id="dot-2"></div>
+          <div class="dot" id="dot-3"></div>
+          <div class="dot" id="dot-4"></div>
+          <div class="dot" id="dot-5"></div>
+        </div>
+      </div>
+
+      <div id="wizard">
+        
+        <!-- Schritt 1 -->
+        <div class="step active" id="step-1">
+          <h1 id="t-s1-title">Anschaffung</h1>
+          <p class="subtitle" id="t-s1-sub">Schritt 1 von 5</p>
+          <label for="priceInput" id="t-s1-label">Was kostet das Produkt?</label>
+          <div class="glass-input-wrapper">
+            <input type="text" id="priceInput" class="glass-input" placeholder="z. B. 150 €" autofocus autocomplete="off">
+          </div>
+          
+          <div class="sale-row">
+            <span class="sale-label-text" id="t-sale-text">🔥 Im Angebot / Reduziert</span>
+            <div class="sale-switch" id="saleSwitch" onclick="toggleSale()"></div>
+          </div>
+
+          <button class="btn-glass" id="t-s1-btn" onclick="nextStep(1)">Weiter</button>
+        </div>
+
+        <!-- Schritt 2 -->
+        <div class="step" id="step-2">
+          <h1 id="t-s2-title">Finanzen</h1>
+          <p class="subtitle" id="t-s2-sub">Schritt 2 von 5</p>
+          <label for="budgetInput" id="t-s2-label">Wie viel freies Budget hast du diesen Monat?</label>
+          <div class="glass-input-wrapper">
+            <input type="text" id="budgetInput" class="glass-input" placeholder="z. B. 400 €" autocomplete="off">
+          </div>
+          <button class="btn-glass" id="t-s2-btn" onclick="nextStep(2)">Weiter</button>
+        </div>
+
+        <!-- Schritt 3 -->
+        <div class="step" id="step-3">
+          <h1 id="t-s3-title">Nutzung</h1>
+          <p class="subtitle" id="t-s3-sub">Schritt 3 von 5</p>
+          <label id="t-s3-label">Wie oft wirst du es aktiv nutzen?</label>
+          <div class="pills-grid">
+            <div class="pill" id="t-freq-daily" onclick="setSelection('freq', 'daily', this)">Täglich</div>
+            <div class="pill" id="t-freq-weekly" onclick="setSelection('freq', 'weekly', this)">Wöchentlich</div>
+            <div class="pill" id="t-freq-monthly" onclick="setSelection('freq', 'monthly', this)">Monatlich</div>
+            <div class="pill" id="t-freq-yearly" onclick="setSelection('freq', 'yearly', this)">Selten / Jährlich</div>
+          </div>
+        </div>
+
+        <!-- Schritt 4 -->
+        <div class="step" id="step-4">
+          <h1 id="t-s4-title">Bedenkzeit</h1>
+          <p class="subtitle" id="t-s4-sub">Schritt 4 von 5</p>
+          <label id="t-s4-label">Wie lange geht dir das schon durch den Kopf?</label>
+          <div class="pills-grid">
+            <div class="pill" id="t-time-hours" onclick="setSelection('time', 'hours', this)">Unter 24 Std.</div>
+            <div class="pill" id="t-time-days" onclick="setSelection('time', 'days', this)">2 bis 14 Tage</div>
+            <div class="pill" id="t-time-weeks" onclick="setSelection('time', 'weeks', this)">Über 2 Wochen</div>
+            <div class="pill" id="t-time-months" onclick="setSelection('time', 'months', this)">Schon ewig</div>
+          </div>
+        </div>
+
+        <!-- Schritt 5 -->
+        <div class="step" id="step-5">
+          <h1 id="t-s5-title">Alltag & Nutzen</h1>
+          <p class="subtitle" id="t-s5-sub">Schritt 5 von 5</p>
+          <label id="t-s5-label">Löst dieses Produkt ein echtes Problem im Alltag?</label>
+          <div class="pills-grid" style="grid-template-columns: 1fr;">
+            <div class="pill" id="t-nec-yes" onclick="finishApp('yes', this)">Ja, absoluter Mehrwert</div>
+            <div class="pill" id="t-nec-no" onclick="finishApp('no', this)" style="margin-top: 5px;">Eher Spielerei / Nice-to-have</div>
+          </div>
+        </div>
+
+        <!-- Ergebnis -->
+        <div class="step" id="step-result">
+          <div class="badge" id="resBadge">Auswertung</div>
+          <div class="result-title" id="resTitle">Ergebnis</div>
+          <p class="reason" id="resReason">Begründung...</p>
+          <div class="metrics" id="resMetrics">Metriken...</div>
+          
+          <button class="btn-glass" id="t-reset-btn" onclick="resetApp()">Neue Entscheidung prüfen</button>
+          <button class="btn-secondary" id="t-watchlist-btn" onclick="quickAddToWatchlist()" style="display:none;">🛒 In die Merkliste legen</button>
+        </div>
+
+      </div>
+    </div>
+
+    <div class="watchlist-trigger-box" onclick="openWatchlistModal()">
+      <span class="watchlist-trigger-label" id="watchlistTriggerText">🛒 Meine Merkliste</span>
+      <span class="watchlist-trigger-badge" id="watchlistCountBadge">0</span>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <div class="footer-nav">
+    <span class="footer-link" id="footerCreatorText" onclick="openCreatorModal()">Created by Filip</span>
+    <span class="footer-link" id="footerHowText" onclick="openHowModal()">Wie es funktioniert</span>
+    <span class="footer-link" id="footerInfoText" onclick="openInfoModal()">Datenschutz</span>
+  </div>
+
+  <!-- Creator Modal mit dem Hinweis -->
+  <div class="modal-overlay" id="creatorModal" onclick="maybeCloseModal(event, 'creatorModal')">
+    <div class="modal-card" style="height: auto;">
+      <button class="modal-close" onclick="closeModal('creatorModal')">✕</button>
+      <div class="modal-title" id="creatorTitle">Über den Ersteller</div>
+      <div class="modal-text" style="font-size: 0.9rem; color: var(--text-sub); line-height: 1.5;">
+        Diese Website wurde komplett von <b>Filip</b> erdacht und umgesetzt – vollständig ohne den Einsatz von künstlicher Intelligenz. 
+      </div>
+    </div>
+  </div>
+
+  <div class="modal-overlay" id="infoModal" onclick="maybeCloseModal(event, 'infoModal')">
+    <div class="modal-card" style="height: auto;">
+      <button class="modal-close" onclick="closeModal('infoModal')">✕</button>
+      <div class="modal-title" id="modalTitle">Datenschutz & Sicherheit</div>
+      <div class="modal-text" style="font-size: 0.9rem; color: var(--text-sub); line-height: 1.5;">
+        Deine Eingaben und die lokale Merkliste werden ausschließlich in deinem Browser (localStorage) gespeichert. Es wird zu keinem Zeitpunkt ein Account benötigt oder Daten an einen Server übermittelt. 100% anonym.
+      </div>
+    </div>
+  </div>
+
+  <div class="modal-overlay" id="howModal" onclick="maybeCloseModal(event, 'howModal')">
+    <div class="modal-card" style="height: auto;">
+      <button class="modal-close" onclick="closeModal('howModal')">✕</button>
+      <div class="modal-title" id="howTitle">Wie das System funktioniert</div>
+      <div class="modal-text" style="font-size: 0.9rem; color: var(--text-sub); line-height: 1.5;">
+        Diese Website analysiert Kaufentscheidungen psychologisch und mathematisch. Sie prüft den Anteil am Monatsbudget, die tatsächliche Nutzungshäufigkeit, deine Bedenkzeit und den echten Nutzen im Alltag, um Impulskäufe zu entlarven und sinnvolle Investments zu bestätigen.
+      </div>
+    </div>
+  </div>
+
+  <!-- Merkliste Modal -->
+  <div class="modal-overlay" id="watchlistModal" onclick="maybeCloseModal(event, 'watchlistModal')">
+    <div class="modal-card">
+      <button class="modal-close" onclick="closeModal('watchlistModal')">✕</button>
+      <div class="modal-title" id="watchlistModalTitle">Deine Merkliste</div>
+      
+      <div class="watchlist-add-bar">
+        <input type="text" id="manualName" class="glass-input" style="font-size: 0.85rem; padding: 10px 14px; text-align: left; flex: 1;" placeholder="Name oder Link...">
+        <input type="text" id="manualPrice" class="glass-input" style="font-size: 0.85rem; padding: 10px 14px; text-align: center; width: 85px;" placeholder="Preis €">
+        <button class="btn-glass" style="padding: 10px 14px; font-size: 0.9rem; width: auto;" onclick="addManualWatchlistItem()">＋</button>
+      </div>
+
+      <div class="watchlist-scroll" id="watchlistContainer"></div>
+    </div>
+  </div>
+
+  <script>
+    let currentLang = 'de';
+    let currentTheme = 'auto';
+    let currentStepNum = 1;
+    let data = { price: 0, budget: 0, isSale: false, freq: '', time: '', necessity: '' };
+    let lastResultState = null;
+
+    const i18n = {
+      de: {
+        title: "Brauche ich das?",
+        back: "← Zurück",
+        thAuto: "Auto", thDark: "Dunkel", thLight: "Hell",
+        s1Title: "Anschaffung", s1Sub: "Schritt 1 von 5", s1Label: "Was kostet das Produkt?", s1Btn: "Weiter", s1Placeholder: "z. B. 150 €",
+        saleText: "🔥 Im Angebot / Reduziert",
+        s2Title: "Finanzen", s2Sub: "Schritt 2 von 5", s2Label: "Wie viel freies Budget hast du diesen Monat?", s2Btn: "Weiter", s2Placeholder: "z. B. 400 €",
+        s3Title: "Nutzung", s3Sub: "Schritt 3 von 5", s3Label: "Wie oft wirst du es aktiv nutzen?",
+        fDaily: "Täglich", fWeekly: "Wöchentlich", fMonthly: "Monatlich", fYearly: "Selten / Jährlich",
+        s4Title: "Bedenkzeit", s4Sub: "Schritt 4 von 5", s4Label: "Wie lange geht dir das schon durch den Kopf?",
+        tHours: "Unter 24 Std.", tDays: "2 bis 14 Tage", tWeeks: "Über 2 Wochen", tMonths: "Schon ewig",
+        s5Title: "Alltag & Nutzen", s5Sub: "Schritt 5 von 5", s5Label: "Löst dieses Produkt ein echtes Problem im Alltag?",
+        nYes: "Ja, absoluter Mehrwert", nNo: "Eher Spielerei / Nice-to-have",
+        resetBtn: "Neue Entscheidung prüfen",
+        watchlistBtn: "🛒 In die Merkliste legen",
+        watchlistAdded: "✓ Auf Merkliste gespeichert",
+        resBadge: "Auswertung",
+        footerCreator: "Created by Filip",
+        footerInfo: "Datenschutz",
+        footerHow: "Wie es funktioniert",
+        creatorTitle: "Über den Ersteller",
+        creatorText: "Diese Website wurde komplett von Filip erdacht und umgesetzt – vollständig ohne den Einsatz von künstlicher Intelligenz.",
+        watchlistTitle: "Deine Merkliste",
+        emptyWatchlist: "Deine Merkliste ist leer.",
+        shopBtn: "Shop ↗",
+        watchlistTrigger: "🛒 Meine Merkliste"
+      },
+      en: {
+        title: "Do I need this?",
+        back: "← Back",
+        thAuto: "Auto", thDark: "Dark", thLight: "Light",
+        s1Title: "Acquisition", s1Sub: "Step 1 of 5", s1Label: "How much does it cost?", s1Btn: "Continue", s1Placeholder: "e.g. 150 €",
+        saleText: "🔥 On Sale / Discounted",
+        s2Title: "Finances", s2Sub: "Step 2 of 5", s2Label: "What is your free budget this month?", s2Btn: "Continue", s2Placeholder: "e.g. 400 €",
+        s3Title: "Usage", s3Sub: "Step 3 of 5", s3Label: "How often will you actively use it?",
+        fDaily: "Daily", fWeekly: "Weekly", fMonthly: "Monthly", fYearly: "Rarely / Yearly",
+        s4Title: "Contemplation", s4Sub: "Step 4 of 5", s4Label: "How long have you been thinking about this?",
+        tHours: "Under 24 hrs", tDays: "2 to 14 days", tWeeks: "Over 2 weeks", tMonths: "Forever",
+        s5Title: "Utility", s5Sub: "Step 5 of 5", s5Label: "Does this solve a real problem in your daily life?",
+        nYes: "Yes, absolute value", nNo: "Just a nice-to-have",
+        resetBtn: "Check new decision",
+        watchlistBtn: "🛒 Add to Watchlist",
+        watchlistAdded: "✓ Saved to Watchlist",
+        resBadge: "Evaluation",
+        footerCreator: "Created by Filip",
+        footerInfo: "Privacy",
+        footerHow: "How it works",
+        creatorTitle: "About the Creator",
+        creatorText: "This website was completely conceived and built by Filip – entirely without the use of artificial intelligence.",
+        watchlistTitle: "Your Watchlist",
+        emptyWatchlist: "Your watchlist is empty.",
+        shopBtn: "Shop ↗",
+        watchlistTrigger: "🛒 My Watchlist"
+      }
+    };
+
+    function triggerHaptic() {
+      if (window.navigator && window.navigator.vibrate) {
+        window.navigator.vibrate(5);
+      }
+    }
+
+    function toggleSale() {
+      triggerHaptic();
+      data.isSale = !data.isSale;
+      const sw = document.getElementById('saleSwitch');
+      if (data.isSale) sw.classList.add('active');
+      else sw.classList.remove('active');
+    }
+
+    const systemDarkMode = window.matchMedia('(prefers-color-scheme: dark)');
+    systemDarkMode.addEventListener('change', () => {
+      if (currentTheme === 'auto') applyThemeSettings();
+    });
+
+    function setTheme(theme) {
+      currentTheme = theme;
+      const slider = document.getElementById('themeSlider');
+      document.querySelectorAll('#themeControl .segment-option').forEach(el => el.classList.remove('active'));
+
+      if (theme === 'auto') {
+        slider.style.transform = 'translateX(0%)';
+        document.getElementById('th-auto').classList.add('active');
+      } else if (theme === 'dark') {
+        slider.style.transform = 'translateX(100%)';
+        document.getElementById('th-dark').classList.add('active');
+      } else if (theme === 'light') {
+        slider.style.transform = 'translateX(200%)';
+        document.getElementById('th-light').classList.add('active');
+      }
+      applyThemeSettings();
+    }
+
+    function applyThemeSettings() {
+      const body = document.body;
+      if (currentTheme === 'dark') {
+        body.classList.add('dark-mode');
+      } else if (currentTheme === 'light') {
+        body.classList.remove('dark-mode');
+      } else {
+        if (systemDarkMode.matches) {
+          body.classList.add('dark-mode');
+        } else {
+          body.classList.remove('dark-mode');
+        }
+      }
+    }
+
+    function setLang(lang) {
+      currentLang = lang;
+      const slider = document.getElementById('langSlider');
+      document.querySelectorAll('#langControl .segment-option').forEach(el => el.classList.remove('active'));
+
+      if (lang === 'de') {
+        slider.style.transform = 'translateX(0%)';
+        document.getElementById('ln-de').classList.add('active');
+      } else {
+        slider.style.transform = 'translateX(100%)';
+        document.getElementById('ln-en').classList.add('active');
+      }
+      updateTexts();
+      
+      if (currentStepNum > 5 && lastResultState !== null) {
+        showResult(lastResultState, false);
+      }
+    }
+
+    function updateTexts() {
+      const t = i18n[currentLang];
+      document.getElementById('appHeader').innerText = t.title;
+      document.getElementById('backText').innerText = t.back;
+      
+      document.getElementById('th-auto').innerText = t.thAuto;
+      document.getElementById('th-dark').innerText = t.thDark;
+      document.getElementById('th-light').innerText = t.thLight;
+
+      document.getElementById('t-s1-title').innerText = t.s1Title;
+      document.getElementById('t-s1-sub').innerText = t.s1Sub;
+      document.getElementById('t-s1-label').innerText = t.s1Label;
+      document.getElementById('t-s1-btn').innerText = t.s1Btn;
+      document.getElementById('priceInput').placeholder = t.s1Placeholder;
+      document.getElementById('t-sale-text').innerText = t.saleText;
+
+      document.getElementById('t-s2-title').innerText = t.s2Title;
+      document.getElementById('t-s2-sub').innerText = t.s2Sub;
+      document.getElementById('t-s2-label').innerText = t.s2Label;
+      document.getElementById('t-s2-btn').innerText = t.s2Btn;
+      document.getElementById('budgetInput').placeholder = t.s2Placeholder;
+
+      document.getElementById('t-s3-title').innerText = t.s3Title;
+      document.getElementById('t-s3-sub').innerText = t.s3Sub;
+      document.getElementById('t-s3-label').innerText = t.s3Label;
+      document.getElementById('t-freq-daily').innerText = t.fDaily;
+      document.getElementById('t-freq-weekly').innerText = t.fWeekly;
+      document.getElementById('t-freq-monthly').innerText = t.fMonthly;
+      document.getElementById('t-freq-yearly').innerText = t.fYearly;
+
+      document.getElementById('t-s4-title').innerText = t.s4Title;
+      document.getElementById('t-s4-sub').innerText = t.s4Sub;
+      document.getElementById('t-s4-label').innerText = t.s4Label;
+      document.getElementById('t-time-hours').innerText = t.tHours;
+      document.getElementById('t-time-days').innerText = t.tDays;
+      document.getElementById('t-time-weeks').innerText = t.tWeeks;
+      document.getElementById('t-time-months').innerText = t.tMonths;
+
+      document.getElementById('t-s5-title').innerText = t.s5Title;
+      document.getElementById('t-s5-sub').innerText = t.s5Sub;
+      document.getElementById('t-s5-label').innerText = t.s5Label;
+      document.getElementById('t-nec-yes').innerText = t.nYes;
+      document.getElementById('t-nec-no').innerText = t.nNo;
+
+      document.getElementById('t-reset-btn').innerText = t.resetBtn;
+      document.getElementById('resBadge').innerText = t.resBadge;
+      document.getElementById('footerCreatorText').innerText = t.footerCreator;
+      document.getElementById('footerInfoText').innerText = t.footerInfo;
+      document.getElementById('footerHowText').innerText = t.footerHow;
+      document.getElementById('creatorTitle').innerText = t.creatorTitle;
+      document.getElementById('creatorText').innerText = t.creatorText;
+      document.getElementById('watchlistModalTitle').innerText = t.watchlistTitle;
+      document.getElementById('watchlistTriggerText').innerText = t.watchlistTrigger;
+
+      updateWatchlistBadgeCount();
+    }
+
+    function openCreatorModal() { triggerHaptic(); document.getElementById('creatorModal').classList.add('active'); }
+    function openInfoModal() { triggerHaptic(); document.getElementById('infoModal').classList.add('active'); }
+    function openHowModal() { triggerHaptic(); document.getElementById('howModal').classList.add('active'); }
+    function openWatchlistModal() { triggerHaptic(); renderWatchlist(); document.getElementById('watchlistModal').classList.add('active'); }
+    function closeModal(id) { triggerHaptic(); document.getElementById(id).classList.remove('active'); }
+    function maybeCloseModal(e, id) { if (e.target.id === id) closeModal(id); }
+
+    function quickAddToWatchlist() {
+      triggerHaptic();
+      let watchlist = JSON.parse(localStorage.getItem('budget_watchlist') || '[]');
+      const newItem = {
+        id: Date.now(),
+        name: currentLang === 'de' ? 'Geparkter Artikel' : 'Parked Item',
+        link: '',
+        price: data.price,
+        isSale: data.isSale,
+        date: new Date().toLocaleDateString()
+      };
+      watchlist.push(newItem);
+      localStorage.setItem('budget_watchlist', JSON.stringify(watchlist));
+      updateWatchlistBadgeCount();
+
+      const btn = document.getElementById('t-watchlist-btn');
+      btn.innerText = i18n[currentLang].watchlistAdded;
+      btn.style.opacity = '0.6';
+      btn.style.pointerEvents = 'none';
+    }
+
+    function addManualWatchlistItem() {
+      triggerHaptic();
+      const rawName = document.getElementById('manualName').value.trim();
+      const rawPrice = cleanNumber(document.getElementById('manualPrice').value);
+      if (!rawName) return;
+
+      let name = rawName;
+      let link = '';
+      if (rawName.startsWith('http://') || rawName.startsWith('https://')) {
+        link = rawName;
+        try { name = new URL(rawName).hostname.replace('www.', ''); } catch(e) { name = 'Web-Link'; }
+      }
+
+      let watchlist = JSON.parse(localStorage.getItem('budget_watchlist') || '[]');
+      watchlist.push({
+        id: Date.now(),
+        name: name,
+        link: link,
+        price: rawPrice || 0,
+        isSale: false,
+        date: new Date().toLocaleDateString()
+      });
+      localStorage.setItem('budget_watchlist', JSON.stringify(watchlist));
+      
+      document.getElementById('manualName').value = '';
+      document.getElementById('manualPrice').value = '';
+      updateWatchlistBadgeCount();
+      renderWatchlist();
+    }
+
+    function editWatchlistItem(id) {
+      triggerHaptic();
+      const container = document.getElementById(`item-content-${id}`);
+      let watchlist = JSON.parse(localStorage.getItem('budget_watchlist') || '[]');
+      const item = watchlist.find(i => i.id === id);
+      if (!item) return;
+
+      container.innerHTML = `
+        <div class="watchlist-edit-inputs">
+          <input type="text" id="edit-name-${id}" value="${item.name}" placeholder="Name...">
+          <input type="text" id="edit-price-${id}" value="${item.price}" placeholder="Preis" style="width: 70px;">
+        </div>
+      `;
+
+      const actionsContainer = document.getElementById(`item-actions-${id}`);
+      actionsContainer.innerHTML = `
+        <button class="action-btn" onclick="saveWatchlistItem(${id})" title="Speichern">💾</button>
+        <button class="action-btn delete-btn" onclick="renderWatchlist()" title="Abbrechen">✕</button>
+      `;
+    }
+
+    function saveWatchlistItem(id) {
+      triggerHaptic();
+      const newName = document.getElementById(`edit-name-${id}`).value.trim();
+      const newPrice = cleanNumber(document.getElementById(`edit-price-${id}`).value);
+
+      let watchlist = JSON.parse(localStorage.getItem('budget_watchlist') || '[]');
+      watchlist = watchlist.map(item => {
+        if (item.id === id) {
+          item.name = newName || item.name;
+          item.price = newPrice;
+        }
+        return item;
+      });
+
+      localStorage.setItem('budget_watchlist', JSON.stringify(watchlist));
+      renderWatchlist();
+    }
+
+    function removeFromWatchlist(id) {
+      triggerHaptic();
+      let watchlist = JSON.parse(localStorage.getItem('budget_watchlist') || '[]');
+      watchlist = watchlist.filter(item => item.id !== id);
+      localStorage.setItem('budget_watchlist', JSON.stringify(watchlist));
+      updateWatchlistBadgeCount();
+      renderWatchlist();
+    }
+
+    function updateWatchlistBadgeCount() {
+      let watchlist = JSON.parse(localStorage.getItem('budget_watchlist') || '[]');
+      document.getElementById('watchlistCountBadge').innerText = watchlist.length;
+    }
+
+    function renderWatchlist() {
+      const container = document.getElementById('watchlistContainer');
+      let watchlist = JSON.parse(localStorage.getItem('budget_watchlist') || '[]');
+      const t = i18n[currentLang];
+
+      if (watchlist.length === 0) {
+        container.innerHTML = `<div style="text-align: center; color: var(--text-sub); padding: 20px; font-size: 0.9rem;">${t.emptyWatchlist}</div>`;
+        return;
+      }
+
+      container.innerHTML = '';
+      watchlist.forEach(item => {
+        const saleBadge = item.isSale ? ' 🔥 Sale' : '';
+        const el = document.createElement('div');
+        el.className = 'watchlist-item';
+        el.innerHTML = `
+          <div class="watchlist-info" id="item-content-${item.id}">
+            <span class="watchlist-title">${item.name}</span>
+            <span class="watchlist-meta">${item.price} €${saleBadge} • ${item.date}</span>
+          </div>
+          <div class="watchlist-actions" id="item-actions-${item.id}">
+            ${item.link ? `<a href="${item.link}" target="_blank" class="shop-link">${t.shopBtn}</a>` : ''}
+            <button class="action-btn" onclick="editWatchlistItem(${item.id})" title="Bearbeiten">✏️</button>
+            <button class="action-btn delete-btn" onclick="removeFromWatchlist(${item.id})" title="Löschen">✕</button>
+          </div>
+        `;
+        container.appendChild(el);
+      });
+    }
+
+    function makeDraggable(controlId, optionsCount, callback) {
+      const control = document.getElementById(controlId);
+      const slider = control.querySelector('.segment-slider');
+      let isDragging = false;
+      let lastIndex = -1;
+
+      function getPosition(e) { return e.touches ? e.touches[0].clientX : e.clientX; }
+
+      function onStart(e) {
+        isDragging = true;
+        slider.style.transition = 'none';
+        updateDrag(e);
+      }
+
+      function updateDrag(e) {
+        if (!isDragging) return;
+        const rect = control.getBoundingClientRect();
+        let offsetX = getPosition(e) - rect.left - 3;
+        const maxW = rect.width - 6;
+        offsetX = Math.max(0, Math.min(offsetX, maxW));
+        const percent = (offsetX / maxW) * 100;
+        slider.style.transform = `translateX(${percent * (optionsCount === 2 ? 1 : 2)}%)`;
+
+        const currentIndex = Math.floor(Math.max(0, Math.min(getPosition(e) - rect.left, rect.width)) / (rect.width / optionsCount));
+        if (currentIndex !== lastIndex) {
+          triggerHaptic();
+          lastIndex = currentIndex;
+        }
+      }
+
+      function onEnd(e) {
+        if (!isDragging) return;
+        isDragging = false;
+        lastIndex = -1;
+        slider.style.transition = 'transform 0.35s cubic-bezier(0.16, 1, 0.3, 1), background 0.3s ease';
+
+        const rect = control.getBoundingClientRect();
+        const clientX = e.changedTouches ? e.changedTouches[0].clientX : (e.clientX || rect.left);
+        const index = Math.floor(Math.max(0, Math.min(clientX - rect.left, rect.width)) / (rect.width / optionsCount));
+        callback(index);
+      }
+
+      control.addEventListener('mousedown', onStart);
+      window.addEventListener('mousemove', updateDrag);
+      window.addEventListener('mouseup', onEnd);
+      control.addEventListener('touchstart', onStart);
+      window.addEventListener('touchmove', updateDrag);
+      window.addEventListener('touchend', onEnd);
+    }
+
+    makeDraggable('themeControl', 3, (index) => {
+      if (index === 0) setTheme('auto');
+      else if (index === 1) setTheme('dark');
+      else setTheme('light');
+    });
+
+    makeDraggable('langControl', 2, (index) => {
+      if (index === 0) setLang('de');
+      else setLang('en');
+    });
+
+    function cleanNumber(val) {
+      if (!val) return 0;
+      const num = val.toString().replace(/[^0-9]/g, '');
+      return num ? parseFloat(num) : 0;
+    }
+
+    function updateProgress(stepNum) {
+      currentStepNum = stepNum;
+      for (let i = 1; i <= 5; i++) {
+        const dot = document.getElementById('dot-' + i);
+        if (i <= stepNum) dot.classList.add('active');
+        else dot.classList.remove('active');
+      }
+
+      const backBtn = document.getElementById('backBtn');
+      if (stepNum > 1 && stepNum <= 5) backBtn.classList.add('visible');
+      else backBtn.classList.remove('visible');
+
+      if (stepNum > 5) {
+        document.getElementById('progressDots').style.display = 'none';
+        document.getElementById('appHeader').style.opacity = '0';
+      } else {
+        document.getElementById('progressDots').style.display = 'flex';
+        document.getElementById('appHeader').style.opacity = '1';
+      }
+    }
+
+    function switchStep(fromId, toId, nextStepNum) {
+      const fromEl = document.getElementById(fromId);
+      const toEl = document.getElementById(toId);
+      fromEl.style.opacity = '0';
+      fromEl.style.transform = 'translateY(-12px)';
+      setTimeout(() => {
+        fromEl.classList.remove('active');
+        toEl.classList.add('active');
+        toEl.style.opacity = '1';
+        toEl.style.transform = 'translateY(0)';
+        updateProgress(nextStepNum);
+      }, 220);
+    }
+
+    function nextStep(current) {
+      triggerHaptic();
+      if (current === 1) {
+        const val = document.getElementById('priceInput').value;
+        const num = cleanNumber(val);
+        if (!num) return;
+        data.price = num;
+        switchStep('step-1', 'step-2', 2);
+        setTimeout(() => document.getElementById('budgetInput').focus(), 300);
+      } else if (current === 2) {
+        const val = document.getElementById('budgetInput').value;
+        const num = cleanNumber(val);
+        if (!num) return;
+        data.budget = num;
+        switchStep('step-2', 'step-3', 3);
+      }
+    }
+
+    function prevStep() {
+      triggerHaptic();
+      if (currentStepNum <= 1 || currentStepNum > 5) return;
+      const prevNum = currentStepNum - 1;
+      switchStep('step-' + currentStepNum, 'step-' + prevNum, prevNum);
+    }
+
+    function setSelection(field, value, element) {
+      triggerHaptic();
+      data[field] = value;
+      element.style.opacity = '0.7';
+      setTimeout(() => {
+        if (field === 'freq') switchStep('step-3', 'step-4', 4);
+        else if (field === 'time') switchStep('step-4', 'step-5', 5);
+      }, 250);
+    }
+
+    function finishApp(necessityValue, element) {
+      triggerHaptic();
+      data.necessity = necessityValue;
+      
+      let score = 50;
+      const ratio = data.price / data.budget;
+      if (ratio > 0.4) score -= 30;
+      else if (ratio > 0.2) score -= 15;
+      else score += 15;
+
+      if (data.freq === 'daily') score += 25;
+      else if (data.freq === 'weekly') score += 15;
+      else if (data.freq === 'yearly') score -= 15;
+
+      if (data.time === 'hours') score -= 20;
+      else if (data.time === 'days') score += 5;
+      else if (data.time === 'weeks' || data.time === 'months') score += 20;
+
+      if (data.necessity === 'yes') score += 20;
+      else score -= 15;
+
+      if (data.isSale) {
+        if (data.time === 'hours' && ratio > 0.25) score -= 15;
+        else if (data.time === 'weeks' || data.time === 'months') score += 10;
+      }
+
+      score = Math.max(0, Math.min(100, score));
+      lastResultState = score;
+      showResult(score, true);
+    }
+
+    function showResult(score, doSwitch) {
+      if (doSwitch) switchStep('step-5', 'step-result', 6);
+
+      const card = document.getElementById('glassCard');
+      const badge = document.getElementById('resBadge');
+      const title = document.getElementById('resTitle');
+      const reason = document.getElementById('resReason');
+      const metrics = document.getElementById('resMetrics');
+      const watchlistBtn = document.getElementById('t-watchlist-btn');
+
+      const budgetPercent = Math.round((data.price / data.budget) * 100);
+
+      let costText = '';
+      if (data.freq === 'daily') {
+        const dailyCost = (data.price / 365).toFixed(2);
+        costText = currentLang === 'de' ? `~${dailyCost} € pro Tag` : `~${dailyCost} € per day`;
+      } else if (data.freq === 'weekly') {
+        const weeklyCost = (data.price / 52).toFixed(2);
+        costText = currentLang === 'de' ? `~${weeklyCost} € pro Einsatz` : `~${weeklyCost} € per use`;
+      } else if (data.freq === 'monthly') {
+        const monthlyCost = (data.price / 12).toFixed(2);
+        costText = currentLang === 'de' ? `~${monthlyCost} € pro Monat` : `~${monthlyCost} € per month`;
+      } else {
+        const rareCost = (data.price / 2).toFixed(2);
+        costText = currentLang === 'de' ? `~${rareCost} € pro Nutzung` : `~${rareCost} € per use`;
+      }
+
+      watchlistBtn.innerText = i18n[currentLang].watchlistBtn;
+      watchlistBtn.style.opacity = '1';
+      watchlistBtn.style.pointerEvents = 'none';
+
+      if (score < 45) {
+        card.className = 'glass-card status-no';
+        watchlistBtn.style.display = 'block';
+        if (currentLang === 'de') {
+          badge.innerText = 'Impuls-Alarm';
+          title.innerText = data.isSale ? 'Vorsicht vor der Sale-Falle!' : 'Kritische Anschaffung';
+          reason.innerText = `Mit ${budgetPercent}% deines Monatsbudgets haut das rein. Kaum Bedenkzeit und ein reiner Nice-to-have-Charakter${data.isSale ? ' (trotz Rabatt!)' : ''} bedeuten effektive ${costText} für seltene Nutzung. Erst mal in die Kühlbox damit!`;
+          metrics.innerHTML = `💡 Langzeit-Wert: <b>${costText}</b><br>💸 Budget-Anteil: <b>${budgetPercent}%</b>`;
+        } else {
+          badge.innerText = 'Impulse Alert';
+          title.innerText = data.isSale ? 'Watch out for the Sale Trap!' : 'Critical Purchase';
+          reason.innerText = `At ${budgetPercent}% of your budget, this is heavy. Minimal contemplation and low utility${data.isSale ? ' (despite the sale!)' : ''} mean you're paying an effective ${costText}. Park it on your watchlist!`;
+          metrics.innerHTML = `💡 Long-term value: <b>${costText}</b><br>💸 Budget share: <b>${budgetPercent}%</b>`;
+        }
+      } else if (score < 70) {
+        card.className = 'glass-card status-maybe';
+        watchlistBtn.style.display = 'block';
+        if (currentLang === 'de') {
+          badge.innerText = 'Bedenkzeit empfohlen';
+          title.innerText = '14 Tage sacken lassen';
+          reason.innerText = `Kein kompletter Fehlkauf, aber bei ${budgetPercent}% Auslastung auch kein Schnellschuss wert. Pack es auf die Merkliste und schau in zwei Wochen mit frischem Kopf noch mal drauf.`;
+          metrics.innerHTML = `💡 Langzeit-Wert: <b>${costText}</b><br>💡 Score: <b>${score}/100</b>`;
+        } else {
+          badge.innerText = 'Contemplation';
+          title.innerText = 'Wait 14 days';
+          reason.innerText = `Not a total mistake, but at ${budgetPercent}% impact, it deserves cooling down. Park it on your watchlist and re-evaluate in two weeks.`;
+          metrics.innerHTML = `💡 Long-term value: <b>${costText}</b><br>💡 Score: <b>${score}/100</b>`;
+        }
+      } else {
+        card.className.png = 'glass-card status-yes';
+        card.className = 'glass-card status-yes';
+        watchlistBtn.style.display = 'none';
+        if (currentLang === 'de') {
+          badge.innerText = 'Klares Go';
+          title.innerText = data.isSale ? 'Perfektes Timing im Angebot!' : 'Sinnvolles Investment';
+          reason.innerText = `Absolut vertretbar! Gerechnet auf deine Nutzung landest du bei fairen ${costText}. Das passt locker ins Budget und stiftet echten Mehrwert.${data.isSale ? ' Der Rabatt macht es umso besser.' : ''} Gönn dir!`;
+          metrics.innerHTML = `💡 Langzeit-Wert: <b>${costText}</b><br>💸 Budget-Anteil: <b>${budgetPercent}%</b>`;
+        } else {
+          badge.innerText = 'Clear Go';
+          title.innerText = data.isSale ? 'Perfect Sale Timing!' : 'Smart Investment';
+          reason.innerText = `Totally justifiable! Based on usage, you're at a fair ${costText}. It fits your budget nicely and brings true value.${data.isSale ? ' The discount makes it even better.' : ''} Go for it!`;
+          metrics.innerHTML = `💡 Long-term value: <b>${costText}</b><br>💸 Budget share: <b>${budgetPercent}%</b>`;
+        }
+      }
+    }
+
+    function resetApp() {
+      triggerHaptic();
+      const card = document.getElementById('glassCard');
+      card.className = 'glass-card';
+      lastResultState = null;
+      data.isSale = false;
+      document.getElementById('saleSwitch').classList.remove('active');
+      switchStep('step-result', 'step-1', 1);
+      document.getElementById('priceInput').value = '';
+      document.getElementById('budgetInput').value = '';
+      document.querySelectorAll('.pill').forEach(p => p.style.opacity = '1');
+      data.price = 0; data.budget = 0; data.freq = ''; data.time = ''; data.necessity = '';
+      setTimeout(() => document.getElementById('priceInput').focus(), 350);
+    }
+
+    updateWatchlistBadgeCount();
+    applyThemeSettings();
+  </script>
+
+</body>
+</html>
